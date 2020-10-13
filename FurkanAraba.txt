@@ -1,0 +1,64 @@
+package example;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+ import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+ 	public class example extends JPanel implements ActionListener {
+		
+		private static final long serialVersionUID = 1L;
+		private JButton btnMove, btnStop;
+	    private int x;
+	    private Timer timer;
+	    public example() {
+	       x=100;
+	       btnMove=new JButton("Hareketlen");
+	       btnStop=new JButton("Dur");
+	       setLayout(new BorderLayout());
+	       add(btnMove,BorderLayout.NORTH);
+	       add(btnStop,BorderLayout.SOUTH);
+	       btnMove.addActionListener(this);
+	       btnStop.addActionListener(this);
+	       timer=new Timer(100,this);
+	   } 
+	   public void actionPerformed(ActionEvent e){
+	        if(e.getSource().equals(btnMove))
+	           timer.start();
+	        else if(e.getSource().equals(btnStop))
+	           timer.stop();
+	        else
+	           moveRectangle();
+	           repaint();
+	    }
+	public void moveRectangle(){
+	       if(x<=1480) x=x+10;
+	       else x=0;
+	    }
+	public void paintComponent(Graphics g){
+	      super.paintComponent(g);
+	      g.setColor(Color.RED );
+	        g.fillRect(x, 200, 300, 70);
+	       g.drawRect(x+70, 150,150,50);
+	        g.drawLine(x+140,200,x+140,150);
+	        g.setColor(Color.BLACK );
+	        g.fillOval(x+10, 270, 45, 45);
+	        g.drawOval(x+10,270,45,45);
+	       g.fillOval(x+250, 270, 45, 45);
+	        g.drawOval(x+250,270,45,45);  
+	   }
+	   public static void main(String[] args) {
+	      JFrame window=new JFrame("Araba Ucar Gider");
+	      example m=new example();
+	      window.getContentPane().add(m);
+	      window.setBounds(100, 100, 0, 0);
+	      window.setSize(1500, 600);
+	  
+	      window.setVisible(true);
+	   }
+	}
+     
